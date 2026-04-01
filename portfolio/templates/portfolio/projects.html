@@ -1,0 +1,193 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-bg: #fff0f3; /* Your signature soft blush */
+        --accent-pink: #c71585; /* Your signature Dark Pink */
+        --baby-pink: #fce4ec; /* Your signature Baby Pink */
+        --white: #ffffff;
+        --text-dark: #2d2d2d;
+        --shadow: 0 15px 35px rgba(199, 21, 133, 0.1);
+    }
+
+    /* --- Page Setup --- */
+    .page-container {
+        padding: 80px 0;
+        background-color: var(--primary-bg);
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+    }
+
+    .project-intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 60px;
+        color: var(--text-dark);
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--accent-pink);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    /* --- Grid Layout --- */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* --- Project Card --- */
+    .work-item {
+        background: var(--white);
+        border-radius: 30px; /* Matching your other pages */
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #f9e1ed;
+    }
+
+    .work-item:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(199, 21, 133, 0.2);
+    }
+
+    .work-image {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .work-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .work-item:hover .work-image img {
+        transform: scale(1.1);
+    }
+
+    /* Placeholder for when no photo is uploaded */
+    .no-image-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background: var(--baby-pink);
+        color: var(--accent-pink);
+        font-weight: 700;
+    }
+
+    .no-image-placeholder i {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    /* --- Content Area --- */
+    .work-details {
+        padding: 35px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .work-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        color: var(--accent-pink);
+    }
+
+    .work-description {
+        font-size: 1.05rem;
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 25px;
+        flex-grow: 1;
+    }
+
+    /* --- Action Button --- */
+    .btn-view-project {
+        background-color: var(--accent-pink);
+        color: white;
+        padding: 14px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 1rem;
+        display: inline-block;
+        transition: 0.3s;
+        width: fit-content;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(199, 21, 133, 0.3);
+    }
+
+    .btn-view-project:hover {
+        background-color: #a0116d;
+        color: white;
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .projects-grid { grid-template-columns: 1fr; }
+        .section-title { font-size: 2.2rem; }
+    }
+</style>
+
+<main class="page-container">
+    <div class="container">
+        <h1 class="section-title">My Projects</h1>
+        <p class="project-intro">
+            A showcase of my journey in Software Engineering, bridging technical logic
+            with high-impact creative design.
+        </p>
+
+        <div class="projects-grid">
+            {% for p in projects %}
+            <div class="work-item">
+                <div class="work-image">
+                    {% if p.picture %}
+                        <img src="{{ p.picture.url }}" alt="{{ p.title }}">
+                    {% else %}
+                        <div class="no-image-placeholder">
+                            <i class="fas fa-image"></i>
+                            <span>No Preview Uploaded</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="work-details">
+                    <h3 class="work-title">{{ p.title }}</h3>
+                    <p class="work-description">{{ p.description }}</p>
+
+                    <a href="#" class="btn-view-project">
+                        <i class="fas fa-external-link-alt"></i> Explore Project
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+                <div style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+                    <p class="text-muted">No projects found. Add your best work in the Django Admin!</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

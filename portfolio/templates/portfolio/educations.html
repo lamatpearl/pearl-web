@@ -1,0 +1,160 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-bg: #fff0f3; /* Your signature soft blush */
+        --accent-pink: #c71585; /* Your signature Dark Pink */
+        --baby-pink: #fce4ec; /* Your signature Baby Pink */
+        --white: #ffffff;
+        --text-dark: #2d2d2d;
+        --text-muted: #666;
+    }
+
+    .page-wrapper {
+        background-color: var(--primary-bg);
+        min-height: 100vh;
+        padding: 100px 20px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .education-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--accent-pink);
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+    }
+
+    .section-header p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+    }
+
+    /* --- Timeline Style --- */
+    .timeline {
+        position: relative;
+        padding-left: 40px;
+        border-left: 3px dashed var(--accent-pink);
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 50px;
+        background: var(--white);
+        padding: 40px;
+        border-radius: 30px;
+        box-shadow: 0 15px 35px rgba(199, 21, 133, 0.08);
+        border: 1px solid #f9e1ed;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 20px 40px rgba(199, 21, 133, 0.15);
+        border-color: var(--accent-pink);
+    }
+
+    /* The Pink Dot on the Timeline */
+    .timeline-dot {
+        position: absolute;
+        left: -53px;
+        top: 45px;
+        width: 22px;
+        height: 22px;
+        background-color: var(--accent-pink);
+        border-radius: 50%;
+        border: 4px solid var(--white);
+        box-shadow: 0 0 10px rgba(199, 21, 133, 0.4);
+    }
+
+    .edu-year-badge {
+        display: inline-block;
+        background-color: var(--baby-pink);
+        color: var(--accent-pink);
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .edu-degree {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+
+    .edu-university {
+        font-size: 1.2rem;
+        color: var(--accent-pink);
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .edu-details {
+        margin-top: 15px;
+        font-size: 1rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .timeline { padding-left: 30px; }
+        .timeline-dot { left: -42px; }
+        .edu-degree { font-size: 1.5rem; }
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="education-container">
+
+        <header class="section-header">
+            <h2>Academic Journey</h2>
+            <p>My educational background and professional milestones.</p>
+        </header>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="edu-year-badge">2023 — 2027 (Expected)</span>
+                <h3 class="edu-degree">Bachelor of Science in Computer Science</h3>
+                <p class="edu-university">Negros Oriental State University</p>
+                <p class="edu-details">
+                    Currently focusing on Systems Administration, Web Development with Django,
+                    and Graphic Design. Maintaining a strong focus on technical logic and
+                    aesthetic user interfaces.
+                </p>
+            </div>
+
+            {% for e in educations %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="edu-year-badge">{{ e.year_attended }}</span>
+                <h3 class="edu-degree">{{ e.degree }}</h3>
+                <p class="edu-university">{{ e.university }}</p>
+                {% if e.description %}
+                    <p class="edu-details">{{ e.description }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

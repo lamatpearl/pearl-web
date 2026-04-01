@@ -1,0 +1,155 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+<style>
+    :root {
+        --primary-bg: #fff0f3; /* Your signature soft blush */
+        --accent-pink: #c71585; /* Your signature Dark Pink */
+        --baby-pink: #fce4ec; /* Your signature Baby Pink */
+        --white: #ffffff;
+        --text-dark: #2d2d2d;
+        --shadow: 0 10px 30px rgba(199, 21, 133, 0.15);
+    }
+
+    .skills-page-wrapper {
+        background-color: var(--primary-bg);
+        min-height: 100vh;
+        padding: 80px 20px;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .section-header h1 {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--accent-pink);
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .accent-line {
+        width: 60px;
+        height: 4px;
+        background: var(--accent-pink);
+        margin: 15px auto;
+        border-radius: 2px;
+    }
+
+    /* --- Skill Cards --- */
+    .skill-card {
+        background: var(--white);
+        border-radius: 20px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: 1px solid #f9e1ed;
+        box-shadow: var(--shadow);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 35px 20px;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-10px);
+        background-color: var(--baby-pink);
+        border-color: var(--accent-pink);
+    }
+
+    /* The logo size and color */
+    .icon-container {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 80px;
+    }
+
+    .skill-name {
+        font-weight: 800;
+        color: var(--text-dark);
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Placeholder for skills without a matching logo */
+    .initial-box {
+        width: 65px;
+        height: 65px;
+        background: var(--primary-bg);
+        color: var(--accent-pink);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 900;
+        border: 2px solid var(--accent-pink);
+    }
+
+    @media (max-width: 576px) {
+        .skill-card { padding: 25px 10px; }
+        .icon-container { font-size: 3rem; }
+    }
+</style>
+
+<div class="skills-page-wrapper">
+    <div class="container">
+
+        <header class="section-header">
+            <h1>Skills & Expertise</h1>
+            <p class="text-muted fw-bold text-uppercase">Tech Stack & Creative Tools</p>
+            <div class="accent-line"></div>
+        </header>
+
+        <div class="row g-4 justify-content-center">
+            {% for skill in skills %}
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="skill-card">
+
+                    <div class="icon-container">
+                         {% if "C++" in skill.name|upper or "CPP" in skill.name|upper %}
+                            <i class="devicon-cplusplus-plain colored"></i>
+                         {% elif "PYTHON" in skill.name|upper %}
+                            <i class="devicon-python-plain colored"></i>
+                         {% elif "DJANGO" in skill.name|upper %}
+                            <i class="devicon-django-plain-wordmark colored"></i>
+                         {% elif "JAVASCRIPT" in skill.name|upper or "JS" in skill.name|upper %}
+                            <i class="devicon-javascript-plain colored"></i>
+                         {% elif "HTML" in skill.name|upper %}
+                            <i class="devicon-html5-plain colored"></i>
+                         {% elif "CSS" in skill.name|upper %}
+                            <i class="devicon-css3-plain colored"></i>
+                         {% elif "PHP" in skill.name|upper %}
+                            <i class="devicon-php-plain colored"></i>
+                         {% elif "SQL" in skill.name|upper or "DATABASE" in skill.name|upper %}
+                            <i class="devicon-mysql-plain colored"></i>
+                         {% elif "NETWORKING" in skill.name|upper %}
+                            <i class="devicon-network-plain colored"></i>
+                         {% elif "DESIGN" in skill.name|upper or "GRAPHIC" in skill.name|upper %}
+                            <i class="devicon-canva-original colored"></i>
+                         {% else %}
+                            <div class="initial-box">
+                                {{ skill.name|first|upper }}
+                            </div>
+                         {% endif %}
+                    </div>
+
+                    <h5 class="skill-name">{{ skill.name }}</h5>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center mt-5">
+                <p class="text-muted">No skills found. Add them in the Admin!</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
