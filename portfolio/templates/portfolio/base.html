@@ -4,35 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Pearl</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #fff; margin: 0; overflow-x: hidden; }
-        .navbar { padding: 20px 0; background: #ffffff !important; border-bottom: 1px solid #eee; }
-        .navbar-brand { font-weight: 900; font-style: italic; font-size: 1.8rem; color: #000; text-decoration: none; }
+
+        .navbar {
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px); /* Aesthetic blur effect */
+        }
+
+        .navbar-brand {
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: #000 !important;
+        }
 
         .nav-link {
             color: #000 !important;
             font-weight: 600;
-            margin: 0 10px;
+            margin: 0 5px;
             text-transform: capitalize;
             padding: 8px 20px !important;
             border-radius: 50px;
             transition: 0.3s;
+            text-align: center; /* Center text on mobile drop-down */
         }
 
-        .nav-link:hover { background-color: #fce4ec; color: #000 !important; }
-        .btn-contact { background: #000; color: #fff !important; border-radius: 50px; padding: 10px 25px; text-decoration: none; }
+        .nav-link:hover { background-color: #fce4ec; }
 
-        /* Ensures content doesn't get hidden under the fixed navbar */
-        .main-wrapper { padding-top: 100px; }
+        /* Contact Button Responsive */
+        .btn-contact {
+            background: #000;
+            color: #fff !important;
+            border-radius: 50px;
+            padding: 10px 25px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: #fff;
+                padding: 20px;
+                border-radius: 20px;
+                margin-top: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-item { margin-bottom: 10px; }
+            .btn-contact { width: 100%; margin-top: 10px; }
+        }
+
+        .main-wrapper { padding-top: 90px; }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">Pearl.</a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
@@ -41,7 +81,9 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'skills' %}">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'education' %}">Education</a></li>
                 </ul>
-                <a href="{% url 'contact' %}" class="btn-contact">Contact</a>
+                <div class="d-lg-flex">
+                    <a href="{% url 'contact' %}" class="btn-contact">Contact</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -50,5 +92,7 @@
         {% block content %}
         {% endblock %}
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
