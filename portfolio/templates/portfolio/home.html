@@ -3,28 +3,12 @@
 
 {% block content %}
 <style>
-    /* --- ADJUSTMENT PANEL: ONLY CHANGE THESE NUMBERS --- */
+    /* --- ADJUSTMENT PANEL --- */
     :root {
-        /* 0% is the very top, 100% is the very bottom */
-        --hey-y: 42%;    /* Move "Hey, there" up or down */
-        --photo-y: 60%;  /* Move the Photo up or down */
-
-        /* Keeping your other settings constant */
+        --hey-y: 42%;
+        --photo-y: 60%;
         --hey-gap: 260px;
         --photo-zoom: 1.1;
-    }
-
-    /* --- Navigation Revisions --- */
-    .nav-link {
-        text-transform: capitalize !important;
-        padding: 8px 20px !important;
-        border-radius: 50px !important;
-        transition: 0.3s ease;
-    }
-
-    .nav-link:hover {
-        background-color: #fce4ec !important;
-        color: #000 !important;
     }
 
     /* --- Hero Section Layout --- */
@@ -38,11 +22,11 @@
         background: radial-gradient(circle at 50% 50%, #fff4d2 0%, #ffffff 70%);
     }
 
-    /* Adjustable 'Hey, there' Layer */
+    /* Cursive Layer */
     .layer-cursive {
         position: absolute;
         width: 100%;
-        top: var(--hey-y); /* Controlled by the variable above */
+        top: var(--hey-y);
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 5;
@@ -53,7 +37,7 @@
     .cursive-text {
         font-family: 'Playfair Display', serif;
         font-style: italic;
-        font-size: clamp(5rem, 15vw, 10rem);
+        font-size: clamp(4rem, 15vw, 10rem);
         color: #ff69b4;
         display: flex;
         justify-content: center;
@@ -63,11 +47,11 @@
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
 
-    /* Adjustable Photo Layer */
+    /* Photo Layer */
     .layer-photo {
         position: absolute;
         left: 50%;
-        top: var(--photo-y); /* Controlled by the variable above */
+        top: var(--photo-y);
         transform: translate(-50%, -50%);
         z-index: 2;
         text-align: center;
@@ -79,7 +63,7 @@
         filter: drop-shadow(0 20px 40px rgba(0,0,0,0.05));
     }
 
-    /* Static Layout Elements */
+    /* Name Layer */
     .layer-name {
         position: absolute;
         bottom: 8%;
@@ -88,13 +72,14 @@
     }
 
     .main-title {
-        font-size: clamp(5rem, 12vw, 9rem);
+        font-size: clamp(3.5rem, 12vw, 9rem);
         font-weight: 900;
         line-height: 0.75;
-        letter-spacing: -7px;
+        letter-spacing: -5px;
         color: #1a1a1a;
     }
 
+    /* Tagline Layer */
     .layer-titles {
         position: absolute;
         bottom: 8%;
@@ -109,10 +94,53 @@
         text-transform: uppercase;
         color: #1a1a1a;
     }
+
+    /* --- 📱 MOBILE RESPONSIVE FIXES --- */
+    @media (max-width: 768px) {
+        :root {
+            --hey-gap: 120px; /* Mas maliit na gap para sa "Hey, there" */
+            --photo-y: 55%;   /* Itaas konti ang photo */
+            --photo-zoom: 1.0; /* Bawasan ang zoom para kumasya */
+        }
+
+        .hero-section {
+            height: 100vh;
+            flex-direction: column; /* Stack vertically if needed */
+        }
+
+        .layer-name {
+            bottom: 15%; /* Itaas para hindi matakpan ng nav/contact button */
+            left: 5%;
+        }
+
+        .main-title {
+            letter-spacing: -3px; /* Bawasan ang dikit ng letters */
+        }
+
+        .layer-titles {
+            bottom: 5%;
+            right: 5%;
+            text-align: left; /* Mas madali basahin sa CP pag left-aligned */
+            left: 5%; /* Full width alignment sa baba */
+        }
+
+        .cursive-text {
+            font-size: clamp(3rem, 12vw, 5rem); /* Paliitin ang cursive text */
+        }
+    }
+
+    /* Special fix for very small phones */
+    @media (max-width: 480px) {
+        :root {
+            --hey-gap: 80px;
+        }
+        .main-title {
+            font-size: 4rem;
+        }
+    }
 </style>
 
 <main class="hero-section">
-
     <div class="layer-cursive">
         <h2 class="cursive-text mb-0">
             <span>Hey,</span>
@@ -133,11 +161,9 @@
             Junior Systems Administrator <br>
             & IT Professional
         </p>
-        <p class="text-muted small mt-2" style="font-size: 0.75rem;">
-            Specialized in Network Security, <br>
+        <p class="text-muted small mt-2 d-none d-md-block"> Specialized in Network Security, <br>
             Systems Deployment, and Tech Support.
         </p>
     </div>
-
 </main>
 {% endblock %}
